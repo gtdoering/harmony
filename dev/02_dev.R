@@ -17,7 +17,7 @@
 ## Add one line by package you want to add as dependency
 usethis::use_package( "spotifyr" )
 usethis::use_package( "ggplot2")
-usethis::use_package("R.utils")
+usethis::use_package("stringr")
 
 
 ## Add modules ----

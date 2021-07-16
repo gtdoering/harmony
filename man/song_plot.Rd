@@ -22,3 +22,13 @@ Returns a formatted ggplot object.
 song_plot is a function that will take inputs for data and 
 axis variables and return a ggplot.
 }
+\examples{
+ 
+Sys.setenv(SPOTIFY_CLIENT_ID = '3e2ffc9154ba4bdf885282b6afab8e1a')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = '5325176284b34d2a9ab13ececac8a417')
+data <- spotifyr::get_artist_audio_features('The Head and the Heart')
+
+ggsong <- song_plot(data,'valence','danceability', 'album_name')
+ggsong
+
+}

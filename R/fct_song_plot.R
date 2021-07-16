@@ -1,4 +1,4 @@
-#' song_plot 
+#' song_plot
 #'
 #' @description song_plot is a function that will take inputs for data and 
 #' axis variables and return a ggplot. 
@@ -11,21 +11,34 @@
 #'
 #' @return Returns a formatted ggplot object. 
 #'
+#' @examples  
+#' Sys.setenv(SPOTIFY_CLIENT_ID = '3e2ffc9154ba4bdf885282b6afab8e1a')
+#' Sys.setenv(SPOTIFY_CLIENT_SECRET = '5325176284b34d2a9ab13ececac8a417')
+#' data <- spotifyr::get_artist_audio_features('The Head and the Heart')
+#' 
+#' ggsong <- song_plot(data,'valence','danceability', 'album_name')
+#' ggsong
 #' 
 song_plot <- function(artist_data, plot_xaxis, plot_yaxis, color){
   ggsong <- ggplot2::ggplot(artist_data, ggplot2::aes(x= get(plot_xaxis), y= get(plot_yaxis), color= get(color))) +
     ggplot2::geom_point()+
-    ggplot2::labs(title = paste0("Song Plot for ", artist_data$artist_name[1]),
-                  x = R.utils::capitalize(paste0(plot_xaxis)), 
-                  y = R.utils::capitalize(paste0(plot_yaxis)))
+    ggplot2::labs(
+                   title = paste0("Song Scatter for ", artist_data$artist_name[1]),
+                   x = stringr::str_to_title(paste0(plot_xaxis)), 
+                   y =  stringr::str_to_title(paste0(plot_yaxis)),
+                   color = stringr::str_to_title(sub("_"," ",paste0(color)))
+                  )+
+    
+    ggplot2::theme(legend.text = ggplot2::element_text(size=6))
+  
   
   ggsong
 }
 
 
 ##TESTING##
-data <- spotifyr::get_artist_audio_features('The Head and the Heart')
+# data <- spotifyr::get_artist_audio_features('The Head and the Heart')
 
-ggsong <- song_plot(data,'valence','danceability', 'album_name')
-ggsong
+# ggsong <- song_plot(data,'valence','danceability', 'album_name')
+# ggsong
 
