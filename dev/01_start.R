@@ -21,7 +21,7 @@
 golem::fill_desc(
   pkg_name = "harmony", # The Name of the package containing the App 
   pkg_title = "harmony", # The Title of the package containing the App 
-  pkg_description = "Harmonu is a package containing a shiny app designed to present data utilizing Spotify's
+  pkg_description = "Harmony is a package containing a shiny app designed to present data utilizing Spotify's
   API. The project is designed to learn about utiliziing golem and implementing functions and 
   modules into the shiny app. The original app can be used at 
   'https://gtdoering.shinyapps.io/Spotify/?_ga=2.43737061.1539164132.1626388630-530399822.1626113566'.", 

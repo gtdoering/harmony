@@ -24,7 +24,7 @@ golem::add_module( name = "name_of_module2" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
-golem::add_fct( "helpers" ) 
+golem::add_fct( "song_plot" ) 
 golem::add_utils( "helpers" )
 
 ## External resources
