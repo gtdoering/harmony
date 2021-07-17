@@ -29,7 +29,6 @@ song_plot <- function(artist_data, plot_xaxis, plot_yaxis, color){
                    y =  stringr::str_to_title(paste0(plot_yaxis)),
                    color = stringr::str_to_title(sub("_"," ",paste0(color)))
                   )+
-    
     ggplot2::theme(legend.text = ggplot2::element_text(size=6))
   
   
