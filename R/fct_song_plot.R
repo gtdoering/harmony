@@ -12,8 +12,9 @@
 #' @return Returns a formatted ggplot object. 
 #'
 #' @examples  
-#' Sys.setenv(SPOTIFY_CLIENT_ID = '3e2ffc9154ba4bdf885282b6afab8e1a')
-#' Sys.setenv(SPOTIFY_CLIENT_SECRET = '5325176284b34d2a9ab13ececac8a417')
+#' Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
+#' Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
+#' 
 #' data <- spotifyr::get_artist_audio_features('The Head and the Heart')
 #' 
 #' ggsong <- song_plot(data,'valence','danceability', 'album_name')
