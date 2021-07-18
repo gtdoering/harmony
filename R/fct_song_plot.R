@@ -36,6 +36,7 @@ song_plot <- function(artist_data, plot_xaxis, plot_yaxis, color){
 }
 
 
+
 ##TESTING##
 # data <- spotifyr::get_artist_audio_features('The Head and the Heart')
 
