@@ -10,7 +10,17 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic 
     fluidPage(
-      h1("harmony")
+      titlePanel(
+        "harmony"
+      ),
+      sidebarLayout(
+        sidebarPanel(
+          mod_artist_data_ui("artist")
+        ),
+        mainPanel(
+          NULL
+        )
+      )
     )
   )
 }
