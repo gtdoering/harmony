@@ -15,11 +15,12 @@ app_ui <- function(request) {
       ),
       sidebarLayout(
         sidebarPanel(
-          mod_artist_data_ui("artist")
-        ),
+          mod_artist_data_ui("artist"),
+          mod_artist_plots_side_ui("plot"),
+          mod_plot_clicks_ui("plot")),
         mainPanel(
-          NULL
-        )
+          mod_artist_plots_main_ui("plot")
+      )
       )
     )
   )

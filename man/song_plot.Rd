@@ -27,9 +27,6 @@ axis variables and return a ggplot.
 Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
 Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
 
-data <- spotifyr::get_artist_audio_features('The Head and the Heart')
-
-ggsong <- song_plot(data,'valence','danceability', 'album_name')
-ggsong
+song_plot(spotifyr::get_artist_audio_features('The Head and the Heart'),'Valence','Danceability', 'album_name')
 
 }
