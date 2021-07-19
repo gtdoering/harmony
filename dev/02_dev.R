@@ -19,16 +19,18 @@ usethis::use_package( "spotifyr" )
 usethis::use_package( "ggplot2")
 usethis::use_package("stringr")
 usethis::use_package("shinyWidgets")
+usethis::use_package("ggjoy")
 
 
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "artist_data" ) # Name of the module
-golem::add_module( name = "name_of_module2" ) # Name of the module
+golem::add_module( name = "artist_plots" )# Name of the module
+golem::add_module( name = "plot_clicks" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
-golem::add_fct( "song_plot" ) 
+golem::add_fct( "album_plot" ) 
 golem::add_utils( "helpers" )
 
 ## External resources

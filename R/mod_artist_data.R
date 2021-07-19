@@ -17,8 +17,7 @@ mod_artist_data_ui <- function(id){
       label = "Enter an Artist Name to Search",
       placeholder = "ex. Juice WRLD",
       btnSearch = icon("search"),
-      btnReset = icon("remove"),
-      width = "450px"),
+      btnReset = icon("remove")),
     uiOutput(ns("artist_select"))
   )
 }
@@ -43,15 +42,16 @@ mod_artist_data_server <- function(id){
     output$artist_select <- renderUI({
       selectInput(ns("artist_select"), 
                   label = "Choose Artist From Search", 
-                  choices = list_of_names(),
-                  width = "450px")
+                  choices = list_of_names())
     })
     
-    artist_data <- reactive({
+    artist_data_raw <- reactive({
+      req(input$artist_select != '')
+      req(input$artist_search != '')
       spotifyr::get_artist_audio_features(input$artist_select)
-      })
+    })
     
-    reactive(artist_data())
+      data_raw = reactive(as.data.frame(artist_data_raw()))
   })
 }
 
