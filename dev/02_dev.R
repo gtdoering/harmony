@@ -18,6 +18,7 @@
 usethis::use_package( "spotifyr" )
 usethis::use_package( "ggplot2")
 usethis::use_package("stringr")
+usethis::use_package("shinyWidgets")
 
 
 ## Add modules ----

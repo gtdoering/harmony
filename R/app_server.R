@@ -6,6 +6,5 @@
 #' @noRd
 app_server <- function( input, output, session ) {
   # Your application server logic 
-  artist_data <- reactive(mod_artist_data_server('artist'))
-  output$test <- renderTable(head(artist_data()$album_name))
+  data <- mod_artist_data_server("artist")
 }

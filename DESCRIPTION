@@ -17,6 +17,7 @@ Imports:
     htmltools,
     processx,
     shiny (>= 1.6.0),
+    shinyWidgets,
     spotifyr,
     stringr
 Encoding: UTF-8
