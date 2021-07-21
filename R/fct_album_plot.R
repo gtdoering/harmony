@@ -9,6 +9,11 @@
 #' the joy ridges for the joy plot. 
 #' @param factor_variable Factor variable from the artist_data that will determine the 
 #' grouping for the joy ridges on the y-axis.
+#' 
+#' @export album_plot
+#' 
+#' @examples 
+#' album_plot(spotifyr::get_artist_audio_features('AJR'),'Valence','album_name')
 #'
 #' @return Returns a formatted ggjoy plot.
 #' 

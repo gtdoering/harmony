@@ -10,7 +10,13 @@
 #' the data. Numeric colors will give the plot a continuous color scale.
 #'
 #' @return Returns a formatted ggplot object. 
+#' 
+#' @export song_plot
 #'
+#' @examples
+#' 
+#' song_plot(spotifyr::get_artist_audio_features('Adele'),'Valence','Energy','album_name')
+#' 
 #'
 song_plot <- function(artist_data, plot_xaxis, plot_yaxis, color){
   ggsong <- ggplot2::ggplot(artist_data, 
