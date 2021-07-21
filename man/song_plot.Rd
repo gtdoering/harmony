@@ -22,11 +22,3 @@ Returns a formatted ggplot object.
 song_plot is a function that will take inputs for data and 
 axis variables and return a ggplot.
 }
-\examples{
- 
-spotify_access_token <- spotifyr::get_spotify_access_token()
-
-song_plot(spotifyr::get_artist_audio_features('The Head and the Heart', 
-authorization = spotify_access_token),'Valence','Danceability', 'album_name')
-
-}

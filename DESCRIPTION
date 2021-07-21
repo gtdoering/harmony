@@ -1,9 +1,9 @@
 Package: harmony
-Title: harmony
+Title: harmony Spotify Project
 Version: 0.0.0.9000
 Authors@R: person('Gavin', 'Doering', email = 'gavin.doering@sdstate.edu', role = c('cre', 'aut'))
-Description: Harmonu is a package containing a shiny app designed to present data utilizing Spotify's
-  API. The project is designed to learn about utiliziing golem and implementing functions and 
+Description: Harmony is a package containing a shiny app designed to present data utilizing a Spotify
+  API. The project is designed to learn about utilizing Golem and implementing functions and 
   modules into the shiny app. The original app can be used at 
   'https://gtdoering.shinyapps.io/Spotify/?_ga=2.43737061.1539164132.1626388630-530399822.1626113566'.
 License: MIT + file LICENSE

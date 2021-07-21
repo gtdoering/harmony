@@ -20,14 +20,6 @@ grouping for the joy ridges on the y-axis.}
 Returns a formatted ggjoy plot.
 }
 \description{
-ridge_plot is a function that will take inputs for the data and
+album_plot is a function that will take inputs for the data and
 axis values and return a joy plot from the package 'ggjoy'.
-}
-\examples{
- 
-spotify_access_token <- spotifyr::get_spotify_access_token()
-
-album_plot(spotifyr::get_artist_audio_features('Adele', authorization = spotify_access_token),
-'valence', 'album_name')
-
 }

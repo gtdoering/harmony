@@ -11,11 +11,6 @@
 #'
 #' @return Returns a formatted ggplot object. 
 #'
-#' @examples  
-#' spotify_access_token <- spotifyr::get_spotify_access_token()
-#' 
-#' song_plot(spotifyr::get_artist_audio_features('The Head and the Heart', 
-#' authorization = spotify_access_token),'Valence','Danceability', 'album_name')
 #'
 song_plot <- function(artist_data, plot_xaxis, plot_yaxis, color){
   ggsong <- ggplot2::ggplot(artist_data, 
