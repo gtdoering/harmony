@@ -15,7 +15,8 @@ app_ui <- function(request) {
         "harmony"
       ),
       fluidRow(
-        column(3,wellPanel(
+        column(3,
+               wellPanel(
                mod_artist_data_ui("artist"),
                mod_plot_clicks_ui("plot"),
                mod_artist_plots_side_ui("plot"))
