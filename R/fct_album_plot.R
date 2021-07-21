@@ -1,6 +1,6 @@
 #' album_plot 
 #'
-#' @description ridge_plot is a function that will take inputs for the data and
+#' @description album_plot is a function that will take inputs for the data and
 #' axis values and return a joy plot from the package 'ggjoy'.
 #' 
 #' @param artist_data Data that is retrieved from spotifyr::get_artist_audio_features(). Each row of the 
@@ -11,12 +11,6 @@
 #' grouping for the joy ridges on the y-axis.
 #'
 #' @return Returns a formatted ggjoy plot.
-#'
-#' @examples  
-#' Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
-#' Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
-#' 
-#' ridge_plot(spotifyr::get_artist_audio_features('Adele'),'valence', 'album_name')
 #' 
 album_plot <- function(artist_data, ridge_variable, factor_variable){
   ggridge <- ggplot2::ggplot(artist_data, 
