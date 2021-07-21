@@ -20,6 +20,7 @@ usethis::use_package( "ggplot2")
 usethis::use_package("stringr")
 usethis::use_package("shinyWidgets")
 usethis::use_package("ggjoy")
+usethis::use_package("shinybusy")
 
 
 ## Add modules ----

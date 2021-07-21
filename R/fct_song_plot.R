@@ -22,14 +22,17 @@ song_plot <- function(artist_data, plot_xaxis, plot_yaxis, color){
                             ggplot2::aes(x= get(stringr::str_to_lower(plot_xaxis)), 
                                          y= get(stringr::str_to_lower(plot_yaxis)), 
                                          color= get(color))) +
-    ggplot2::geom_point(size = 3)+
+    ggplot2::geom_point(size = 4.5)+
     ggplot2::labs(
                    title = paste0("Song Scatter for ", artist_data$artist_name[1]),
                    x = paste0(plot_xaxis), 
                    y =  paste0(plot_yaxis),
                    color = stringr::str_to_title(sub("_"," ",paste0(color)))
                   )+
-    ggplot2::theme(legend.text = ggplot2::element_text(size=6))
+    ggplot2::theme(legend.position = "none",
+                   axis.text= ggplot2::element_text(size=14),
+                   axis.title= ggplot2::element_text(size=16),
+                   plot.title= ggplot2::element_text(size=16, face = 'bold'))
   
   
   ggsong

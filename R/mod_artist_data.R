@@ -32,10 +32,13 @@ mod_artist_data_ui <- function(id){
 mod_artist_data_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    spotify_access_token <- reactive({
+      spotifyr::get_spotify_access_token()
+    })
     
     list_of_names <- reactive({
       req(input$artist_search != '')
-      artists <- spotifyr::search_spotify(input$artist_search)
+      artists <- spotifyr::search_spotify(input$artist_search, authorization = spotify_access_token())
       artists$artists$items$name
     })
     
@@ -48,7 +51,17 @@ mod_artist_data_server <- function(id){
     artist_data_raw <- reactive({
       req(input$artist_select != '')
       req(input$artist_search != '')
-      spotifyr::get_artist_audio_features(input$artist_select)
+      shinybusy::show_modal_spinner()
+
+      data <- spotifyr::get_artist_audio_features(input$artist_select, authorization = spotify_access_token())
+      
+      shinybusy::remove_modal_spinner()
+      
+      if(nrow(data) == 0) {
+        stop("Sorry, couldn't find any tracks for that artist's albums on Spotify.")
+      }
+      
+      return(data)
     })
     
       data_raw = reactive(as.data.frame(artist_data_raw()))

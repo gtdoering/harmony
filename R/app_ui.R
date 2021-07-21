@@ -10,19 +10,20 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic 
     fluidPage(
+      theme = bslib::bs_theme(bootswatch = "darkly"),
       titlePanel(
         "harmony"
       ),
-      sidebarLayout(
-        sidebarPanel(
-          mod_artist_data_ui("artist"),
-          mod_artist_plots_side_ui("plot"),
-          mod_plot_clicks_ui("plot")),
-        mainPanel(
-          mod_artist_plots_main_ui("plot")
+      fluidRow(
+        column(3,wellPanel(
+               mod_artist_data_ui("artist"),
+               mod_plot_clicks_ui("plot"),
+               mod_artist_plots_side_ui("plot"))
+               ),
+        column(9,
+               mod_artist_plots_main_ui("plot")
+               )),
       )
-      )
-    )
   )
 }
 
