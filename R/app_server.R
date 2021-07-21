@@ -5,7 +5,8 @@
 #' @import shiny
 #' @noRd
 app_server <- function( input, output, session ) {
-
+  thematic::thematic_shiny()
+  
   # Your application server logic 
   data <- mod_artist_data_server("artist")
   mod_artist_plots_server("plot", data)

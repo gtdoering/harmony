@@ -16,8 +16,9 @@
 mod_artist_plots_main_ui <- function(id){
   ns <- NS(id)
   tagList(
-    plotOutput(ns('song_plot'), click = ns("song_click")),
-    plotOutput(ns('album_plot'))
+    plotOutput(ns('song_plot'), click = ns("song_click"), hover = ns("song_hover"),
+               width = "100%", height = "600px"),
+    #plotOutput(ns('album_plot'))
   )
 }
 
@@ -25,10 +26,11 @@ mod_artist_plots_main_ui <- function(id){
 mod_artist_plots_side_ui <- function(id){
   ns <- NS(id)
   tagList(
+    uiOutput(ns('axis_switch')),
     uiOutput(ns('x_axis_song')),
-    uiOutput(ns('y_axis_song')),
-    uiOutput(ns('x_axis_album'))
-  )
+    uiOutput(ns('y_axis_song'))
+    #uiOutput(ns('x_axis_album'))
+    )
 }
     
 #' artist_plots Server Functions
@@ -45,10 +47,18 @@ mod_artist_plots_server <- function(id, data){
     variables <- c("Acousticness","Danceability","Energy","Instrumentalness",
                "Liveness","Loudness","Speechiness","Tempo","Valence")
     
+    output$axis_switch <- renderUI({
+      req(!is.null(data()))
+      shinyWidgets::materialSwitch(inputId = ns("axis_controls"), 
+                                   label = "Change Axis Variable",
+                                   status = "default",
+                                   value = FALSE)
+    })
+    
     #Dynamically creates select inputs after data is created
     output$x_axis_song <- renderUI({
       req(!is.null(data()))
-      
+      req(input$axis_controls)
       selectInput(ns("x_axis_song"), 
                   label = "Select X Axis for Song Plot", 
                   choices = variables,
@@ -56,37 +66,40 @@ mod_artist_plots_server <- function(id, data){
     })
     output$y_axis_song <- renderUI({
       req(!is.null(data()))
+      req(input$axis_controls)
       
       selectInput(ns("y_axis_song"), 
                   label = "Select Y Axis for Song Plot", 
                   choices = variables,
                   selected = "Valence")
     })
-    output$x_axis_album <- renderUI({
-      req(!is.null(data()))
-      
-      selectInput(ns("x_axis_album"), 
-                  label = "Select X Axis for Album Plot", 
-                  choices = variables,
-                  selected = "Valence")
-    })
+    # output$x_axis_album <- renderUI({
+    #   req(!is.null(data()))
+    #   
+    #   selectInput(ns("x_axis_album"), 
+    #               label = "Select X Axis for Album Plot", 
+    #               choices = variables,
+    #               selected = "Valence")
+    # })
     
     #Generates song scatter plot
     output$song_plot <- renderPlot({
       req(!is.null(data()))
-      req(input$x_axis_song != '')
-      req(input$y_axis_song != '')
       
-      song_plot(data(), input$x_axis_song, input$y_axis_song,'album_name')
+      if(!is.null(input$x_axis_song)){
+        song_plot(data(), input$x_axis_song, input$y_axis_song,'album_name')
+      }else{
+        song_plot(data(), 'Valence', 'Energy','album_name')
+      }
       })
     
     #Generates album ridge plot
-    output$album_plot <- renderPlot({
-      req(!is.null(data()))
-      req(input$x_axis_album != '')
-      
-      album_plot(data(), input$x_axis_album,'album_name')
-    })
+    # output$album_plot <- renderPlot({
+    #   req(!is.null(data()))
+    #   req(input$x_axis_album != '')
+    #   
+    #   album_plot(data(), input$x_axis_album,'album_name')
+    # })
   })
 }
     
