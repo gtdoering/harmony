@@ -8,3 +8,7 @@ $run_dev.*
 ^README\.Rmd$
 ^CODE_OF_CONDUCT\.md$
 ^\.httr-oauth$
+^Dockerfile$
+^\.dockerignore$
+^app\.R$
+^rsconnect$
