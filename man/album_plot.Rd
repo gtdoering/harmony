@@ -25,9 +25,9 @@ axis values and return a joy plot from the package 'ggjoy'.
 }
 \examples{
  
-Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
-Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
+spotify_access_token <- spotifyr::get_spotify_access_token()
 
-ridge_plot(spotifyr::get_artist_audio_features('Adele'),'valence', 'album_name')
+album_plot(spotifyr::get_artist_audio_features('Adele', authorization = spotify_access_token),
+'valence', 'album_name')
 
 }

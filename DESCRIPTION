@@ -9,6 +9,7 @@ Description: Harmonu is a package containing a shiny app designed to present dat
 License: MIT + file LICENSE
 Imports: 
     attempt,
+    bslib,
     config (>= 0.3.1),
     DT,
     ggjoy,
@@ -21,7 +22,8 @@ Imports:
     shinybusy,
     shinyWidgets,
     spotifyr,
-    stringr
+    stringr,
+    thematic
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

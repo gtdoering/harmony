@@ -24,9 +24,9 @@ axis variables and return a ggplot.
 }
 \examples{
  
-Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
-Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
+spotify_access_token <- spotifyr::get_spotify_access_token()
 
-song_plot(spotifyr::get_artist_audio_features('The Head and the Heart'),'Valence','Danceability', 'album_name')
+song_plot(spotifyr::get_artist_audio_features('The Head and the Heart', 
+authorization = spotify_access_token),'Valence','Danceability', 'album_name')
 
 }

@@ -13,10 +13,10 @@
 #' @return Returns a formatted ggjoy plot.
 #'
 #' @examples  
-#' Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
-#' Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXXXXXXXXXXXXXXXX')
+#' spotify_access_token <- spotifyr::get_spotify_access_token()
 #' 
-#' ridge_plot(spotifyr::get_artist_audio_features('Adele'),'valence', 'album_name')
+#' album_plot(spotifyr::get_artist_audio_features('Adele', authorization = spotify_access_token),
+#' 'valence', 'album_name')
 #' 
 album_plot <- function(artist_data, ridge_variable, factor_variable){
   ggridge <- ggplot2::ggplot(artist_data, 

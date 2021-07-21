@@ -43,6 +43,7 @@ mod_artist_data_server <- function(id){
     })
     
     # Generates a vector list of names that the user can choose from
+    # Fixes issue of a less popular band having the name of a word in the name of another band
     list_of_names <- reactive({
       req(input$artist_search != '')
       artists <- spotifyr::search_spotify(input$artist_search, authorization = spotify_access_token())

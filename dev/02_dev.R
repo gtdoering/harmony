@@ -15,12 +15,14 @@
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-usethis::use_package( "spotifyr" )
-usethis::use_package( "ggplot2")
+usethis::use_package("spotifyr" )
+usethis::use_package("ggplot2")
 usethis::use_package("stringr")
 usethis::use_package("shinyWidgets")
 usethis::use_package("ggjoy")
 usethis::use_package("shinybusy")
+usethis::use_package("thematic")
+usethis::use_package("bslib")
 
 
 ## Add modules ----
