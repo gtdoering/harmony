@@ -12,12 +12,16 @@
 mod_artist_data_ui <- function(id){
   ns <- NS(id)
   tagList(
+    
+    # Search bar that provides a search for spotifyr::search_spotify
     shinyWidgets::searchInput(
       ns("artist_search") , 
       label = "Enter an Artist Name to Search",
       placeholder = "ex. Juice WRLD",
       btnSearch = icon("search"),
       btnReset = icon("remove")),
+    
+    # Select input bar to select a name from the search input results
     uiOutput(ns("artist_select"))
   )
 }
@@ -32,41 +36,54 @@ mod_artist_data_ui <- function(id){
 mod_artist_data_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    
+    # Provides access token for the spotify functions
     spotify_access_token <- reactive({
       spotifyr::get_spotify_access_token()
     })
     
+    # Generates a vector list of names that the user can choose from
     list_of_names <- reactive({
       req(input$artist_search != '')
       artists <- spotifyr::search_spotify(input$artist_search, authorization = spotify_access_token())
-      artists$artists$items$name
+      artists <- artists$artists$items[c('id','name')]
+      rownames(artists) <- artists$name
+      artists
     })
     
+    # Creates a UI for the select input bar and a generate plot button that triggers the data
     output$artist_select <- renderUI({
-      selectInput(ns("artist_select"), 
+      tagList(
+        selectInput(ns("artist_select"), 
                   label = "Choose Artist From Search", 
-                  choices = list_of_names())
+                  choices = list_of_names()$name),
+        actionButton(ns("plot_generate"), "Generate Plot")
+      )
     })
     
-    artist_data_raw <- reactive({
-      req(input$artist_select != '')
-      req(input$artist_search != '')
+    # Reactive on the plot generate button, this uses a spotifyr function to get artist
+    # data for the artist that the user selects from the list
+    artist_data_raw <- eventReactive(input$plot_generate,{
       shinybusy::show_modal_spinner()
-
-      data <- spotifyr::get_artist_audio_features(input$artist_select, authorization = spotify_access_token())
+      
+      data <- spotifyr::get_artist_audio_features(list_of_names()[input$artist_select,]$id, authorization = spotify_access_token())
       
       shinybusy::remove_modal_spinner()
-      
-      if(nrow(data) == 0) {
-        stop("Sorry, couldn't find any tracks for that artist's albums on Spotify.")
-      }
-      
-      return(data)
-    })
     
-      data_raw = reactive(as.data.frame(artist_data_raw()))
-  })
-}
+      data
+      })
+    
+    # Uses an if statement to make sure that the data clears out when the search bar is reset
+    data_raw = reactive(
+      if(input$artist_search == ''){
+        NULL
+      }else{
+        as.data.frame(artist_data_raw())
+      }
+    )
+  }
+)}
+
 
 ## To be copied in the UI
 # mod_artist_data_ui("artist_data_ui_1")

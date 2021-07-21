@@ -15,6 +15,9 @@
 # UI mod for the plots on the main panel
 mod_artist_plots_main_ui <- function(id){
   ns <- NS(id)
+  
+  # UI function for the scatter plot that is put on the main panel also creates 
+  # the inputs for clicking on the plot and hovering
   tagList(
     plotOutput(ns('song_plot'), click = ns("song_click"), hover = ns("song_hover"),
                width = "100%", height = "600px"),
@@ -25,10 +28,11 @@ mod_artist_plots_main_ui <- function(id){
 # UI mod for the sidebar selectors
 mod_artist_plots_side_ui <- function(id){
   ns <- NS(id)
+  
+  # UI function to create toggle switch and select inputs for the axis variables
   tagList(
     uiOutput(ns('axis_switch')),
-    uiOutput(ns('x_axis_song')),
-    uiOutput(ns('y_axis_song'))
+    uiOutput(ns('axis_selectors')),
     #uiOutput(ns('x_axis_album'))
     )
 }
@@ -43,10 +47,11 @@ mod_artist_plots_server <- function(id, data){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
-    #Numeric variables to choose from for axises
+    # Numeric variables to choose from for axises
     variables <- c("Acousticness","Danceability","Energy","Instrumentalness",
                "Liveness","Loudness","Speechiness","Tempo","Valence")
     
+    # Creates the switch that allows you to change the axis variables on the plot
     output$axis_switch <- renderUI({
       req(!is.null(data()))
       shinyWidgets::materialSwitch(inputId = ns("axis_controls"), 
@@ -55,24 +60,29 @@ mod_artist_plots_server <- function(id, data){
                                    value = FALSE)
     })
     
-    #Dynamically creates select inputs after data is created
-    output$x_axis_song <- renderUI({
+    # Dynamically creates select inputs after data is created
+    output$axis_selectors <- renderUI({
       req(!is.null(data()))
       req(input$axis_controls)
-      selectInput(ns("x_axis_song"), 
-                  label = "Select X Axis for Song Plot", 
-                  choices = variables,
-                  selected = "Energy")
+      tagList(
+        splitLayout(
+          
+          # Creates a fix for the splitLayout function so the select input dropdowns are visible
+          tags$head(tags$style(HTML(".shiny-split-layout > div {overflow: visible;}"))),
+          cellWidths = c("0%","49.25%", "49.25%"),
+          
+          selectInput(ns("x_axis_song"), 
+                      label = "X Axis", 
+                      choices = variables,
+                      selected = "Energy"),
+          selectInput(ns("y_axis_song"), 
+                    label = "Y Axis", 
+                    choices = variables,
+                    selected = "Valence"))
+          
+      )
     })
-    output$y_axis_song <- renderUI({
-      req(!is.null(data()))
-      req(input$axis_controls)
-      
-      selectInput(ns("y_axis_song"), 
-                  label = "Select Y Axis for Song Plot", 
-                  choices = variables,
-                  selected = "Valence")
-    })
+    
     # output$x_axis_album <- renderUI({
     #   req(!is.null(data()))
     #   
@@ -82,14 +92,15 @@ mod_artist_plots_server <- function(id, data){
     #               selected = "Valence")
     # })
     
-    #Generates song scatter plot
+    # Generates song scatter plot, before toggle switch is activated it defaults 
+    # to energy and valence for the axises
     output$song_plot <- renderPlot({
       req(!is.null(data()))
       
       if(!is.null(input$x_axis_song)){
         song_plot(data(), input$x_axis_song, input$y_axis_song,'album_name')
       }else{
-        song_plot(data(), 'Valence', 'Energy','album_name')
+        song_plot(data(), 'Energy', 'Valence','album_name')
       }
       })
     
