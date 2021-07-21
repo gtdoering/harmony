@@ -24,6 +24,6 @@ album_plot is a function that will take inputs for the data and
 axis values and return a joy plot from the package 'ggjoy'.
 }
 \examples{
-album_plot(spotifyr::get_artist_audio_features('AJR'),'Valence','album_name')
+album_plot(spotifyr::get_artist_audio_features('Adele'),'Valence','album_name')
 
 }

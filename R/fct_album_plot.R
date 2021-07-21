@@ -13,7 +13,7 @@
 #' @export album_plot
 #' 
 #' @examples 
-#' album_plot(spotifyr::get_artist_audio_features('AJR'),'Valence','album_name')
+#' album_plot(spotifyr::get_artist_audio_features('Adele'),'Valence','album_name')
 #'
 #' @return Returns a formatted ggjoy plot.
 #' 
