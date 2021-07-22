@@ -27,13 +27,13 @@ usethis::use_package("bslib")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "artist_data" ) # Name of the module
+golem::add_module( name = "pca_plot" ) # Name of the module
 golem::add_module( name = "artist_plots" )# Name of the module
 golem::add_module( name = "plot_clicks" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
-golem::add_fct( "nothing" ) 
+golem::add_fct( "pca_plot" ) 
 golem::add_utils( "helpers" )
 
 ## External resources

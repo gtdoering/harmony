@@ -18,14 +18,18 @@ app_ui <- function(request) {
         column(3,
                wellPanel(
                mod_artist_data_ui("artist"),
-               mod_plot_clicks_ui("plot"),
-               mod_artist_plots_side_ui("plot"))
+               
+               uiOutput('scatter')
+               )
+
                ),
         column(9,
-               mod_artist_plots_main_ui("plot")
-               )),
+               tabsetPanel(id = "tabs"
+               )
+               
+               ),
       )
-  )
+  ))
 }
 
 #' Add external Resources to the Application
