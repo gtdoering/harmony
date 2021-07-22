@@ -20,7 +20,7 @@ mod_artist_plots_main_ui <- function(id){
   # the inputs for clicking on the plot and hovering
   tagList(
     plotOutput(ns('song_plot'), click = ns("song_click"), hover = ns("song_hover"),
-               width = "100%", height = "600px"),
+               width = "100%", height = "700px"),
     #plotOutput(ns('album_plot'))
   )
 }

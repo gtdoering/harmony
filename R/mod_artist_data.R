@@ -64,10 +64,12 @@ mod_artist_data_server <- function(id){
     
     # Reactive on the plot generate button, this uses a spotifyr function to get artist
     # data for the artist that the user selects from the list
-    artist_data_raw <- eventReactive(input$plot_generate,{
+    artist_data_filtered <- eventReactive(input$plot_generate,{
       shinybusy::show_modal_spinner()
       
       data <- spotifyr::get_artist_audio_features(list_of_names()[input$artist_select,]$id, authorization = spotify_access_token())
+      
+      data <- dplyr::distinct(data,  stringr::str_to_lower(track_name), stringr::str_to_lower(album_name), .keep_all = TRUE)
       
       shinybusy::remove_modal_spinner()
     
@@ -75,13 +77,16 @@ mod_artist_data_server <- function(id){
       })
     
     # Uses an if statement to make sure that the data clears out when the search bar is reset
-    data_raw = reactive(
+    list(
+    go = reactive(input$plot_generate),
+    
+    data_filtered = reactive(
       if(input$artist_search == ''){
         NULL
       }else{
-        as.data.frame(artist_data_raw())
+        as.data.frame(artist_data_filtered())
       }
-    )
+    ))
   }
 )}
 
