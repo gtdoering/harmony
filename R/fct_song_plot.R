@@ -33,7 +33,7 @@ song_plot <- function(artist_data, plot_xaxis, plot_yaxis, color){
     ggplot2::theme(legend.position = "none",
                    axis.text= ggplot2::element_text(size=14),
                    axis.title= ggplot2::element_text(size=16),
-                   plot.title= ggplot2::element_text(size=16, face = 'bold'))
+                   plot.title= ggplot2::element_text(size=16, face = "bold"))
   
   
   ggsong

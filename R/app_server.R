@@ -5,7 +5,10 @@
 #' @import shiny
 #' @noRd
 app_server <- function( input, output, session ) {
-  thematic::thematic_shiny()
+  # Dynamic Theme switch
+  observe(session$setCurrentTheme(
+    if (isTRUE(input$light_mode)) light else dark
+  ))
   
   # Your application server logic 
   data <- mod_artist_data_server("artist")

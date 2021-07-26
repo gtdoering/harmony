@@ -33,7 +33,7 @@ pca_plot <- function(data, album_filter, loading = FALSE, cluster = FALSE){
                                 frame = cluster, frame.type = 'norm',
                                 loadings.colour = 'black',
                                 loadings.label = loading)+ 
-                ggplot2::labs(colour='Album Name')+ 
+                ggplot2::labs(fill="Album Name", colour = "Album Name")+
                 ggplot2::theme(legend.position = 'bottom')
   
   pca_plot

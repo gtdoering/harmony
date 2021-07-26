@@ -4,16 +4,35 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @noRd
+library(bslib)
+
+dark <- bslib::bs_theme(
+  bg = "#191414", fg = "#1DB954", 
+  primary = "#1DB954", secondary = "#1DB954", success = "#1DB954", 
+  info = "#1DB954", warning = "#1DB954", danger = "#1DB954"
+)
+
+light <- bslib::bs_theme(
+  bg = "#FFFFFF", fg = "#1DB954", 
+  primary = "#1DB954", secondary = "#1DB954", success = "#1DB954", 
+  info = "#1DB954", warning = "#1DB954", danger = "#1DB954"
+)
+
+thematic::thematic_shiny()
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic 
     fluidPage(
-      theme = bslib::bs_theme(bootswatch = "darkly"),
+      theme = dark,
       titlePanel(
         "harmony"
       ),
+      
+      shinyWidgets::materialSwitch("light_mode", "Light mode", 
+                                   status = "default",
+                                   value = FALSE),
       fluidRow(
         column(3,
                wellPanel(
