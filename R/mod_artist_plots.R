@@ -13,7 +13,7 @@
 #' @importFrom shiny NS tagList 
 
 # UI mod for the plots on the main panel
-mod_artist_plots_main_ui <- function(id){
+mod_artist_plots_main_ui <- function(id, tab){
   ns <- NS(id)
   
   # UI function for the scatter plot that is put on the main panel also creates 
