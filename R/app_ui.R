@@ -18,8 +18,8 @@ app_ui <- function(request) {
         column(3,
                wellPanel(
                mod_artist_data_ui("artist"),
-               
-               uiOutput('scatter')
+               uiOutput('scatter'),
+               uiOutput('pca_plot')
                )
 
                ),
