@@ -23,6 +23,8 @@ usethis::use_package("ggjoy")
 usethis::use_package("shinybusy")
 usethis::use_package("thematic")
 usethis::use_package("bslib")
+usethis::use_package("ggfortify")
+usethis::use_package("bslib")
 
 
 ## Add modules ----

@@ -48,8 +48,8 @@ mod_artist_data_server <- function(id){
       req(input$artist_search != '')
       artists <- spotifyr::search_spotify(input$artist_search, authorization = spotify_access_token())
       artists <- artists$artists$items[c('id','name')]
-      rownames(artists) <- artists$name
-      artists
+      artists <- dplyr::distinct(artists, stringr::str_to_lower(name), .keep_all = TRUE)
+      artists[,1:2]
     })
     
     # Creates a UI for the select input bar and a generate plot button that triggers the data
@@ -65,9 +65,11 @@ mod_artist_data_server <- function(id){
     # Reactive on the plot generate button, this uses a spotifyr function to get artist
     # data for the artist that the user selects from the list
     artist_data_filtered <- eventReactive(input$plot_generate,{
-      shinybusy::show_modal_spinner()
+      shinybusy::show_modal_spinner(spin = "double-bounce",
+                                    color = "#1DB954")
       
-      data <- spotifyr::get_artist_audio_features(list_of_names()[input$artist_select,]$id, authorization = spotify_access_token())
+      data <- spotifyr::get_artist_audio_features(list_of_names()[list_of_names()$name == input$artist_select,]$id, 
+                                                  authorization = spotify_access_token())
       
       data <- dplyr::distinct(data,  stringr::str_to_lower(track_name), stringr::str_to_lower(album_name), .keep_all = TRUE)
       
