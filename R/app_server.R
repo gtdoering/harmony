@@ -15,7 +15,7 @@ app_server <- function( input, output, session ) {
   
   #Plot Tabs Dynamically Created
   observeEvent(data$data_filtered(), {
-    appendTab(inputId  = "tabs",
+    appendTab(inputId  = "tabs", select = TRUE,
               tabPanel("Scatter",
                        mod_artist_plots_main_ui("plot"))
               
@@ -27,7 +27,7 @@ app_server <- function( input, output, session ) {
     )
     })
   
-  #UI Changing Dynamically with Tab changing
+  #UI sidebar Changing Dynamically with Tab changing
   output$scatter <- renderUI({
     req(input$tabs == "Scatter")
     

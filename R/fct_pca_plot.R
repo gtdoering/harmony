@@ -12,9 +12,12 @@
 #' @export pca_plot
 #' 
 #' @examples 
-#' pca_plot(spotifyr::get_artist_audio_features('Morgan Wallen'), c('Dangerous: The Double Album', 'If I Know Me'))
+#' pca_plot(spotifyr::get_artist_audio_features('Morgan Wallen'), 
+#' c('Dangerous: The Double Album', 'If I Know Me'), TRUE, TRUE)
 #' 
-pca_plot <- function(data, album_filter){
+pca_plot <- function(data, album_filter, loading = FALSE, cluster = FALSE){
+  library(ggfortify)
+  
   pca_variables <- c("acousticness","danceability","energy","instrumentalness",
                      "liveness","loudness","speechiness","tempo","valence")
   
@@ -24,11 +27,14 @@ pca_plot <- function(data, album_filter){
   
   prin_comp_data <- stats::prcomp(pca_data, scale = TRUE)
   
-  pca_plot <- ggplot2::autoplot(prin_comp_data, data =  data[data$album_name %in% album_filter,], shape = FALSE, colour = 'album_name', label = TRUE,
-                                loadings = TRUE,
+  pca_plot <- ggplot2::autoplot(prin_comp_data, data =  data[data$album_name %in% album_filter,], shape = FALSE, colour = 'album_name', 
+                                label = TRUE,
+                                loadings = loading,
+                                frame = cluster, frame.type = 'norm',
                                 loadings.colour = 'black',
-                                loadings.label = TRUE)+
-                ggplot2::theme(legend.position = 'none')
+                                loadings.label = loading)+ 
+                ggplot2::labs(colour='Album Name')+ 
+                ggplot2::theme(legend.position = 'bottom')
   
   pca_plot
 }

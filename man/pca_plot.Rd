@@ -4,7 +4,7 @@
 \alias{pca_plot}
 \title{pca_plot}
 \usage{
-pca_plot(data, album_filter)
+pca_plot(data, album_filter, loading = FALSE, cluster = FALSE)
 }
 \arguments{
 \item{data}{A filtered dataframe from the spotifyr function 
@@ -20,6 +20,7 @@ A plotting function that receives a data frame and runs
 PCA on it to produce a formatted ggplot.
 }
 \examples{
-pca_plot(spotifyr::get_artist_audio_features('Morgan Wallen'), c('Dangerous: The Double Album', 'If I Know Me'))
+pca_plot(spotifyr::get_artist_audio_features('Morgan Wallen'), 
+c('Dangerous: The Double Album', 'If I Know Me'), TRUE, TRUE)
 
 }
