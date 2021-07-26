@@ -37,13 +37,20 @@ app_ui <- function(request) {
         column(3,
                wellPanel(
                mod_artist_data_ui("artist"),
-               uiOutput('scatter'),
-               uiOutput('pca_plot')
+               mod_plot_clicks_ui("plot"),
+               mod_artist_plots_side_ui("plot"),
+               mod_pca_plot_side_ui("pca")
                )
 
                ),
         column(9,
-               tabsetPanel(id = "tabs"
+               tabsetPanel(id = "tabs",
+                           tabPanel("Scatter", 
+                                    mod_artist_plots_main_ui("plot")),
+                           tabPanel("PCA",
+                                    mod_pca_plot_main_ui("pca")
+                           
+                           )
                )
                
                ),
