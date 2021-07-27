@@ -32,7 +32,8 @@ mod_plot_clicks_ui <- function(id){
 #' for the user.
 #'
 #' @noRd 
-mod_plot_clicks_server <- function(id, data){
+mod_plot_clicks_server <- function(id, data, tab){
+  
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
@@ -56,6 +57,7 @@ mod_plot_clicks_server <- function(id, data){
     output$preview_intro <- renderText({
       req(!is.null(data()))
       req(is.null(input$song_click) | nrow(preview_data()) == 0)
+      req(tab() == "Scatter")
       
       c('<h4><center>Click a Song for a Preview</center></h4>')
     })
@@ -63,6 +65,8 @@ mod_plot_clicks_server <- function(id, data){
     #Gives the name of the song that is selected for the preview
     output$preview_title <- renderText({
       req(nrow(preview_data()) > 0)
+      req(tab() == "Scatter")
+      
       c('<h5><strong>Track Preview: </strong>',preview_data()$track_name[1],'</h5>')
     })
     
@@ -70,6 +74,8 @@ mod_plot_clicks_server <- function(id, data){
     # Prints a message if there is no URL available
     output$song_preview <- renderText({
       req(nrow(preview_data()) > 0)
+      req(tab() == "Scatter")
+      
       if(!is.na(preview_data()$track_preview_url[1])){
         c('<center><audio id="song_preview" src="',preview_data()$track_preview_url[1],
         '" type = "audio/mp3" autoplay controls></audio></center><br>')
@@ -98,12 +104,15 @@ mod_plot_clicks_server <- function(id, data){
     output$hover_intro <- renderText({
       req(!is.null(data()))
       req(is.null(input$song_hover) | nrow(song_hover_data()) == 0)
+      req(tab() == "Scatter")
+      
       c('<h4><center>Hover for Song Info</center></h4>')
     })
     
     # Gives the user the album name and song name of the point they are hovering on
     output$hover_info <- renderText({
       req(nrow(song_hover_data()) > 0)
+      req(tab() == "Scatter")
       
       c('<h5><strong>Song Name: </strong>',song_hover_data()$track_name[1],'<br><br>
         <strong>Album Name: </strong>',song_hover_data()$album_name[1],'</h5>')
@@ -112,6 +121,7 @@ mod_plot_clicks_server <- function(id, data){
     # Creates the album image for the point the user is hovering on 
     output$album_image <- renderText({
       req(nrow(song_hover_data()) > 0)
+      req(tab() == "Scatter")
       
       c('<center><img src="',song_hover_data()$album_images[[1]]$url[1],'" height = "200"></center><br>')
     })

@@ -13,7 +13,7 @@
 #' @importFrom shiny NS tagList 
 
 # UI mod for the plots on the main panel
-mod_artist_plots_main_ui <- function(id, tab){
+mod_artist_plots_main_ui <- function(id){
   ns <- NS(id)
   
   # UI function for the scatter plot that is put on the main panel also creates 
@@ -33,6 +33,7 @@ mod_artist_plots_side_ui <- function(id){
   tagList(
     uiOutput(ns('axis_switch')),
     uiOutput(ns('axis_selectors')),
+    textOutput(ns("test"))
     #uiOutput(ns('x_axis_album'))
     )
 }
@@ -43,7 +44,7 @@ mod_artist_plots_side_ui <- function(id){
 #' axises of the graphs, and also to produce the graphs themselves. 
 #'
 #' @noRd 
-mod_artist_plots_server <- function(id, data){
+mod_artist_plots_server <- function(id, data, tab){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
@@ -54,6 +55,8 @@ mod_artist_plots_server <- function(id, data){
     # Creates the switch that allows you to change the axis variables on the plot
     output$axis_switch <- renderUI({
       req(!is.null(data()))
+      req(tab() == "Scatter")
+      
       shinyWidgets::materialSwitch(inputId = ns("axis_controls"), 
                                    label = "Change Axis Variable",
                                    status = "default",
@@ -64,6 +67,8 @@ mod_artist_plots_server <- function(id, data){
     output$axis_selectors <- renderUI({
       req(!is.null(data()))
       req(input$axis_controls)
+      req(tab() == "Scatter")
+      
       tagList(
         splitLayout(
           
