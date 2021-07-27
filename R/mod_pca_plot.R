@@ -42,7 +42,7 @@ mod_pca_plot_main_ui <- function(id){
 #' ability to choose the albums that they want on the plot.
 #'
 #' @noRd 
-mod_pca_plot_server <- function(id, data, go){
+mod_pca_plot_server <- function(id, data, tab){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
@@ -58,6 +58,8 @@ mod_pca_plot_server <- function(id, data, go){
     # Creates a select input bar that the user can interact with
     output$album_select <- renderUI({
       req(!is.null(data()))
+      req(tab() == "PCA")
+      
       tagList(
         selectInput(ns("album_list"), 
                     label = "Choose Albums to Plot", 
@@ -69,6 +71,8 @@ mod_pca_plot_server <- function(id, data, go){
     # Creates the switch that allows you to change the axis variables on the plot
     output$control_switch <- renderUI({
       req(!is.null(data()))
+      req(tab() == "PCA")
+      
       shinyWidgets::materialSwitch(inputId = ns("plot_controls"), 
                                    label = "Plot Settings",
                                    status = "default",
@@ -79,12 +83,14 @@ mod_pca_plot_server <- function(id, data, go){
     output$plot_controls <- renderUI({
       req(!is.null(data()))
       req(input$plot_controls)
+      req(tab() == "PCA")
+      
       tagList(
         splitLayout(
           
           # Creates a fix for the splitLayout function so the select input dropdowns are visible
           tags$head(tags$style(HTML(".shiny-split-layout > div {overflow: visible;}"))),
-          cellWidths = c("0%","49.25%", "49.25%"),
+          cellWidths = c("0%","50%", "50%"),
           
           shinyWidgets::materialSwitch(inputId = ns("loadings_switch"), 
                                        label = "Plot Loadings",
@@ -102,6 +108,7 @@ mod_pca_plot_server <- function(id, data, go){
     output$pca_plot <- renderPlot({
       req(!is.null(data()))
       req(input$album_list != '')
+      req(tab() == "PCA")
       
       if(is.null(input$loadings_switch)){
         pca_plot(data(),input$album_list)
