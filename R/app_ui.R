@@ -19,42 +19,45 @@ light <- bslib::bs_theme(
 
 
 app_ui <- function(request) {
-  tagList(
     # Leave this function for adding external resources
-    golem_add_external_resources(),
+    golem_add_external_resources()
     # Your application UI logic 
-    fluidPage(
-      theme = dark,
-      titlePanel(
-        "harmony"
-      ),
+      header <- shinydashboard::dashboardHeader(
+        title = "harmony"
+         
+                 )
       
-      shinyWidgets::materialSwitch("light_mode", "Light mode", 
-                                   status = "default",
-                                   value = FALSE),
-      fluidRow(
-        column(3,
-               wellPanel(
-               mod_artist_data_ui("artist"),
-               mod_plot_clicks_ui("plot"),
-               mod_artist_plots_side_ui("plot"),
-               mod_pca_plot_side_ui("pca")
-               )
-
-               ),
-        column(9,
-               tabsetPanel(id = "tabs",
-                           tabPanel("Scatter", 
-                                    mod_artist_plots_main_ui("plot")),
-                           tabPanel("PCA",
-                                    mod_pca_plot_main_ui("pca")
-                           
-                           )
-               )
-               
-               ),
+      sidebar <- shinydashboard::dashboardSidebar(
+        width = 300,
+        shinydashboard::sidebarMenu(
+          id = "tabs",
+          mod_artist_data_ui("artist"),
+          shinydashboard::menuItem("Scatter", tabName = "scatter"),
+          mod_artist_plots_side_ui("plot"),
+          mod_plot_clicks_ui("plot"),
+          shinydashboard::menuItem("PCA", tabName = "pca"),
+          mod_pca_plot_side_ui("pca")
+        )
       )
-  ))
+      
+      body <- shinydashboard::dashboardBody(
+        shinydashboard::tabItems(
+          shinydashboard::tabItem(tabName = "scatter",
+                                  mod_artist_plots_main_ui("plot")),
+          shinydashboard::tabItem(tabName = "pca",
+                                  mod_pca_plot_main_ui("pca"))
+          
+          )
+      )
+      
+    
+      
+    shinydashboard::dashboardPage(
+      header,
+      sidebar,
+      body,
+      skin = "black"
+    )
 }
 
 #' Add external Resources to the Application

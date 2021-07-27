@@ -58,7 +58,7 @@ mod_pca_plot_server <- function(id, data, tab){
     # Creates a select input bar that the user can interact with
     output$album_select <- renderUI({
       req(!is.null(data()))
-      req(tab() == "PCA")
+      req(tab() == "pca")
       
       tagList(
         selectInput(ns("album_list"), 
@@ -71,7 +71,7 @@ mod_pca_plot_server <- function(id, data, tab){
     # Creates the switch that allows you to change the axis variables on the plot
     output$control_switch <- renderUI({
       req(!is.null(data()))
-      req(tab() == "PCA")
+      req(tab() == "pca")
       
       shinyWidgets::materialSwitch(inputId = ns("plot_controls"), 
                                    label = "Plot Settings",
@@ -83,7 +83,7 @@ mod_pca_plot_server <- function(id, data, tab){
     output$plot_controls <- renderUI({
       req(!is.null(data()))
       req(input$plot_controls)
-      req(tab() == "PCA")
+      req(tab() == "pca")
       
       tagList(
         splitLayout(
@@ -108,7 +108,6 @@ mod_pca_plot_server <- function(id, data, tab){
     output$pca_plot <- renderPlot({
       req(!is.null(data()))
       req(input$album_list != '')
-      req(tab() == "PCA")
       
       if(is.null(input$loadings_switch)){
         pca_plot(data(),input$album_list)

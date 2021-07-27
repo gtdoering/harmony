@@ -55,7 +55,7 @@ mod_artist_plots_server <- function(id, data, tab){
     # Creates the switch that allows you to change the axis variables on the plot
     output$axis_switch <- renderUI({
       req(!is.null(data()))
-      req(tab() == "Scatter")
+      req(tab() == "scatter")
       
       shinyWidgets::materialSwitch(inputId = ns("axis_controls"), 
                                    label = "Change Axis Variable",
@@ -67,7 +67,7 @@ mod_artist_plots_server <- function(id, data, tab){
     output$axis_selectors <- renderUI({
       req(!is.null(data()))
       req(input$axis_controls)
-      req(tab() == "Scatter")
+      req(tab() == "scatter")
       
       tagList(
         splitLayout(
