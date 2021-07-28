@@ -14,7 +14,7 @@ app_server <- function( input, output, session ) {
   
   # Your application server logic 
   data <- mod_artist_data_server("artist")
-  mod_plot_clicks_server("plot", data$data_filtered, TAB)
+  mod_plot_clicks_server("plot", data$data_filtered, TAB, data$img)
   mod_artist_plots_server("plot", data$data_filtered, TAB)
   mod_pca_plot_server("pca", data$data_filtered, TAB)
 }

@@ -47,9 +47,9 @@ mod_artist_data_server <- function(id){
     list_of_names <- reactive({
       req(input$artist_search != '')
       artists <- spotifyr::search_spotify(input$artist_search, authorization = spotify_access_token())
-      artists <- artists$artists$items[c('id','name')]
+      artists <- artists$artists$items[c('id','name','images')]
       artists <- dplyr::distinct(artists, stringr::str_to_lower(name), .keep_all = TRUE)
-      artists[,1:2]
+      artists[,1:3]
     })
     
     # Creates a UI for the select input bar and a generate plot button that triggers the data
@@ -80,7 +80,7 @@ mod_artist_data_server <- function(id){
     
     # Uses an if statement to make sure that the data clears out when the search bar is reset
     list(
-    go = reactive(input$plot_generate),
+    img = reactive(list_of_names()$images[list_of_names()$name == input$artist_select][[1]][1,2]),
     
     data_filtered = reactive(
       if(input$artist_search == ''){

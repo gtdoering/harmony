@@ -2,6 +2,7 @@
 
 export(album_plot)
 export(pca_plot)
+export(pca_table)
 export(run_app)
 export(song_plot)
 import(shiny)

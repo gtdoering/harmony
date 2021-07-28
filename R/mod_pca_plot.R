@@ -29,7 +29,8 @@ mod_pca_plot_main_ui <- function(id){
   ns <- NS(id)
   tagList(
     plotOutput(ns("pca_plot"),
-               width = "100%", height = "700px")
+               width = "100%", height = "700px"),
+    tableOutput(ns("pca_table"))
  
   )
 }
@@ -108,15 +109,24 @@ mod_pca_plot_server <- function(id, data, tab){
     output$pca_plot <- renderPlot({
       req(!is.null(data()))
       req(input$album_list != '')
-      req(tab() == "PCA")
       
       if(is.null(input$loadings_switch)){
         pca_plot(data(),input$album_list)
       }else{
         pca_plot(data(),input$album_list, input$loadings_switch, input$grouping_switch)
       }
+      })
+    
+    output$pca_table <- renderTable({
+      req(!is.null(data()))
+      req(input$album_list != '')
+  
       
-  })
+      pca_table(data(), input$album_list)
+    },border = TRUE,
+    rownames = TRUE,
+    striped = TRUE,
+    hover = TRUE)
   }
 )}
     
@@ -125,3 +135,4 @@ mod_pca_plot_server <- function(id, data, tab){
     
 ## To be copied in the server
 # mod_pca_plot_server("pca_plot_ui_1")
+

@@ -11,6 +11,10 @@ pca_plot(data, album_filter, loading = FALSE, cluster = FALSE)
 get_artist_audio_features.}
 
 \item{album_filter}{A list of albums to perform the PCA on and plot.}
+
+\item{loading}{A logical value to specify whether to plot the loadings or not}
+
+\item{cluster}{A logical value to specify whether to plot the clusters or not}
 }
 \value{
 Returns a formatted ggplot.

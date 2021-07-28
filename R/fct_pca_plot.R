@@ -6,6 +6,8 @@
 #' @param data A filtered dataframe from the spotifyr function 
 #' get_artist_audio_features.
 #' @param album_filter A list of albums to perform the PCA on and plot.
+#' @param loading A logical value to specify whether to plot the loadings or not
+#' @param cluster A logical value to specify whether to plot the clusters or not
 #'
 #' @return Returns a formatted ggplot.
 #'
@@ -24,18 +26,21 @@ pca_plot <- function(data, album_filter, loading = FALSE, cluster = FALSE){
   data <- data[,c(pca_variables,'album_name','track_name')]
   
   pca_data <- data[data$album_name %in% album_filter, c(pca_variables)]
-  
-  prin_comp_data <- stats::prcomp(pca_data, scale = TRUE)
+  prin_comp_data <- stats::prcomp(pca_data, center = TRUE, scale = TRUE)
   
   pca_plot <- ggplot2::autoplot(prin_comp_data, data =  data[data$album_name %in% album_filter,], shape = FALSE, colour = 'album_name', 
                                 label = TRUE,
                                 loadings = loading,
                                 frame = cluster, frame.type = 'norm',
                                 loadings.colour = 'black',
-                                loadings.label = loading)+ 
+                                loadings.label = loading,
+                                scale = 0)+ 
                 ggplot2::labs(fill="Album Name", colour = "Album Name")+
-                ggplot2::theme(legend.position = 'bottom')
+                ggplot2::theme(legend.position = 'bottom',
+                               legend.text = element_text(size=15),
+                               legend.title = element_text(size = 16))
   
   pca_plot
 }
+
 
