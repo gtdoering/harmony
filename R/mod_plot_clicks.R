@@ -16,8 +16,8 @@ mod_plot_clicks_ui <- function(id){
   tagList(
     # Plot interactive features
     htmlOutput(ns('hover_intro')),
-    htmlOutput(ns('hover_info')),
     htmlOutput(ns('album_image')),
+    htmlOutput(ns('hover_info')),
     htmlOutput(ns('preview_intro')),
     htmlOutput(ns('preview_title')),
     htmlOutput(ns('song_preview'))
@@ -32,7 +32,7 @@ mod_plot_clicks_ui <- function(id){
 #' for the user.
 #'
 #' @noRd 
-mod_plot_clicks_server <- function(id, data, tab){
+mod_plot_clicks_server <- function(id, data, tab, img){
   
   moduleServer( id, function(input, output, session){
     ns <- session$ns
@@ -59,7 +59,7 @@ mod_plot_clicks_server <- function(id, data, tab){
       req(is.null(input$song_click) | nrow(preview_data()) == 0)
       req(tab() == "Scatter")
       
-      c('<h4><center>Click a Song for a Preview</center></h4>')
+      c('<h4><center>Click a Song for a Preview</center></h4><br>')
     })
     
     #Gives the name of the song that is selected for the preview
@@ -80,7 +80,7 @@ mod_plot_clicks_server <- function(id, data, tab){
         c('<center><audio id="song_preview" src="',preview_data()$track_preview_url[1],
         '" type = "audio/mp3" autoplay controls></audio></center><br>')
       }else{
-        c('<h5><center>No Preview Available</center></h5>')
+        c('<h5><center>No Preview Available</center></h5><br>')
       }
     })
     
@@ -106,7 +106,7 @@ mod_plot_clicks_server <- function(id, data, tab){
       req(is.null(input$song_hover) | nrow(song_hover_data()) == 0)
       req(tab() == "Scatter")
       
-      c('<h4><center>Hover for Song Info</center></h4>')
+      c('<br><center><img src="',img(),'" height = "200"></center><br><h4><center>Hover for Song Info</h4><br>')
     })
     
     # Gives the user the album name and song name of the point they are hovering on
@@ -123,7 +123,7 @@ mod_plot_clicks_server <- function(id, data, tab){
       req(nrow(song_hover_data()) > 0)
       req(tab() == "Scatter")
       
-      c('<center><img src="',song_hover_data()$album_images[[1]]$url[1],'" height = "200"></center><br>')
+      c('<br><center><img src="',song_hover_data()$album_images[[1]]$url[1],'" height = "200"></center><br>')
     })
     
     

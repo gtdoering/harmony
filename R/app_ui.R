@@ -12,7 +12,7 @@ dark <- bslib::bs_theme(
 )
 
 light <- bslib::bs_theme(
-  bg = "#FFFFFF", fg = "#1DB954", 
+  bg = "#FFFFFF", fg = "#191414", 
   primary = "#1DB954", secondary = "#1DB954", success = "#1DB954", 
   info = "#1DB954", warning = "#1DB954", danger = "#1DB954"
 )
