@@ -33,8 +33,8 @@ app_ui <- function(request) {
           id = "tabs",
           mod_artist_data_ui("artist"),
           shinydashboard::menuItem("Scatter", tabName = "scatter"),
-          mod_artist_plots_side_ui("plot"),
           mod_plot_clicks_ui("plot"),
+          mod_artist_plots_side_ui("plot"),
           shinydashboard::menuItem("PCA", tabName = "pca"),
           mod_pca_plot_side_ui("pca")
         )
