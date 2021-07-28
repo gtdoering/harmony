@@ -17,7 +17,7 @@ light <- bslib::bs_theme(
   info = "#1DB954", warning = "#1DB954", danger = "#1DB954"
 )
 
-
+thematic::thematic_shiny()
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources

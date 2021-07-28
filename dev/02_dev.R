@@ -35,7 +35,7 @@ golem::add_module( name = "plot_clicks" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
-golem::add_fct( "pca_plot" ) 
+golem::add_fct( "pca_table" ) 
 golem::add_utils( "helpers" )
 
 ## External resources

@@ -24,18 +24,19 @@ pca_plot <- function(data, album_filter, loading = FALSE, cluster = FALSE){
   data <- data[,c(pca_variables,'album_name','track_name')]
   
   pca_data <- data[data$album_name %in% album_filter, c(pca_variables)]
-  
-  prin_comp_data <- stats::prcomp(pca_data, scale = TRUE)
+  prin_comp_data <- stats::prcomp(pca_data, center = TRUE, scale = TRUE)
   
   pca_plot <- ggplot2::autoplot(prin_comp_data, data =  data[data$album_name %in% album_filter,], shape = FALSE, colour = 'album_name', 
                                 label = TRUE,
                                 loadings = loading,
                                 frame = cluster, frame.type = 'norm',
                                 loadings.colour = 'black',
-                                loadings.label = loading)+ 
+                                loadings.label = loading,
+                                scale = 0)+ 
                 ggplot2::labs(fill="Album Name", colour = "Album Name")+
                 ggplot2::theme(legend.position = 'bottom')
   
   pca_plot
 }
+
 
