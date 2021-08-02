@@ -16,7 +16,7 @@ light <- bslib::bs_theme(
   primary = "#1DB954", secondary = "#1DB954", success = "#1DB954", 
   info = "#1DB954", warning = "#1DB954", danger = "#1DB954"
 )
-
+library(magrittr)
 thematic::thematic_shiny()
 app_ui <- function(request) {
   tagList(
@@ -38,7 +38,8 @@ app_ui <- function(request) {
                mod_artist_data_ui("artist"),
                mod_plot_clicks_ui("plot"),
                mod_artist_plots_side_ui("plot"),
-               mod_pca_plot_side_ui("pca")
+               mod_pca_plot_side_ui("pca"),
+               mod_rmd_generator_ui("rmd")
                )
 
                ),

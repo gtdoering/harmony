@@ -21,7 +21,6 @@ mod_artist_plots_main_ui <- function(id){
   tagList(
     plotOutput(ns('song_plot'), click = ns("song_click"), hover = ns("song_hover"),
                width = "100%", height = "700px"),
-    #plotOutput(ns('album_plot'))
   )
 }
 
@@ -34,7 +33,6 @@ mod_artist_plots_side_ui <- function(id){
     uiOutput(ns('axis_switch')),
     uiOutput(ns('axis_selectors')),
     textOutput(ns("test"))
-    #uiOutput(ns('x_axis_album'))
     )
 }
     
@@ -88,18 +86,9 @@ mod_artist_plots_server <- function(id, data, tab){
       )
     })
     
-    # output$x_axis_album <- renderUI({
-    #   req(!is.null(data()))
-    #   
-    #   selectInput(ns("x_axis_album"), 
-    #               label = "Select X Axis for Album Plot", 
-    #               choices = variables,
-    #               selected = "Valence")
-    # })
-    
     # Generates song scatter plot, before toggle switch is activated it defaults 
-    # to energy and valence for the axises
-    output$song_plot <- renderPlot({
+    # to energy and valence for the axises. Plot is stored as ggscatter
+    ggsong <- reactive({
       req(!is.null(data()))
       
       if(!is.null(input$x_axis_song)){
@@ -109,13 +98,12 @@ mod_artist_plots_server <- function(id, data, tab){
       }
       })
     
-    #Generates album ridge plot
-    # output$album_plot <- renderPlot({
-    #   req(!is.null(data()))
-    #   req(input$x_axis_album != '')
-    #   
-    #   album_plot(data(), input$x_axis_album,'album_name')
-    # })
+    # Stored plot is rendered as an output object
+    output$song_plot <- renderPlot(ggsong())
+    
+    # Plot is returned to be used in the RMD report
+    ggscatter <- reactive(ggsong())
+  
   })
 }
     

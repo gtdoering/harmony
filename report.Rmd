@@ -1,0 +1,35 @@
+---
+title: "Harmony report"
+output: 
+  html_document:
+    theme:
+      bg : "#191414" 
+      fg : "#1DB954" 
+      primary : "#1DB954" 
+      secondary : "#1DB954" 
+      success : "#1DB954"
+      info : "#1DB954"
+      warning : "#1DB954" 
+      danger : "#1DB954"
+      
+params:
+  ggscatter: NA
+  pca_scatter: NA
+  pca_table: NA
+
+---
+
+A plot.
+```{r}
+params$ggscatter
+```
+
+```{r}
+params$pca_scatter
+```
+
+```{r}
+params$pca_table
+```
+
+
