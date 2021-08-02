@@ -106,10 +106,10 @@ mod_pca_plot_server <- function(id, data, tab){
     })
     
     # Creates the output PCA plot
-    output$pca_plot <- renderPlot({
+    plot <- reactive({
       req(!is.null(data()))
       req(input$album_list != '')
-      
+
       if(is.null(input$loadings_switch)){
         pca_plot(data(),input$album_list)
       }else{
@@ -117,16 +117,27 @@ mod_pca_plot_server <- function(id, data, tab){
       }
       })
     
-    output$pca_table <- renderTable({
+    output$pca_plot <- renderPlot(
+      plot()
+    )
+    
+    table <- reactive({
       req(!is.null(data()))
       req(input$album_list != '')
-  
-      
+
       pca_table(data(), input$album_list)
-    },border = TRUE,
-    rownames = TRUE,
-    striped = TRUE,
-    hover = TRUE)
+      })
+    
+    output$pca_table <- renderTable(table(),
+      border = TRUE,
+      rownames = TRUE,
+      striped = TRUE,
+      hover = TRUE)
+
+    list(
+      plot =  reactive(plot()),
+      table = reactive(table())
+    )
   }
 )}
     

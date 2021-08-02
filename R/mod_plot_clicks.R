@@ -114,7 +114,7 @@ mod_plot_clicks_server <- function(id, data, tab, img){
       req(nrow(song_hover_data()) > 0)
       req(tab() == "Scatter")
       
-      c('<h5><strong>Song Name: </strong>',song_hover_data()$track_name[1],'<br><br>
+      c('<h5><strong>Track Name: </strong>',song_hover_data()$track_name[1],'<br><br>
         <strong>Album Name: </strong>',song_hover_data()$album_name[1],'</h5>')
     })
     

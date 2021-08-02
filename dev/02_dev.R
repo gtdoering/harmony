@@ -25,13 +25,15 @@ usethis::use_package("thematic")
 usethis::use_package("bslib")
 usethis::use_package("ggfortify")
 usethis::use_package("bslib")
+usethis::use_package("magrittr")
 
 
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "pca_plot" ) # Name of the module
 golem::add_module( name = "artist_plots" )# Name of the module
-golem::add_module( name = "plot_clicks" ) # Name of the module
+golem::add_module( name = "plot_clicks" )# Name of the module
+golem::add_module( name = "rmd_generator" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
