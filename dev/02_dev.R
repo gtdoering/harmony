@@ -30,7 +30,6 @@ usethis::use_package("dplyr")
 usethis::use_package("tibble")
 usethis::use_package("rmarkdown")
 usethis::use_pipe()
-requireNamespace("ggfortify")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
