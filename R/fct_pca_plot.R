@@ -13,12 +13,14 @@
 #'
 #' @export pca_plot
 #' 
+#' @import ggfortify
+#' 
 #' @examples 
 #' pca_plot(spotifyr::get_artist_audio_features('Morgan Wallen'), 
 #' c('Dangerous: The Double Album', 'If I Know Me'), TRUE, TRUE)
 #' 
 pca_plot <- function(data, album_filter, loading = FALSE, cluster = FALSE){
-  library(ggfortify)
+  
   
   pca_plot <- data %>%
     dplyr::filter(album_name %in% album_filter) %>%
@@ -34,8 +36,8 @@ pca_plot <- function(data, album_filter, loading = FALSE, cluster = FALSE){
                       scale = 0) +
     ggplot2::labs(fill="Album Name", colour = "Album Name")+
     ggplot2::theme(legend.position = 'bottom',
-                   legend.text = element_text(size=15),
-                   legend.title = element_text(size = 16))
+                   legend.text = ggplot2::element_text(size=15),
+                   legend.title = ggplot2::element_text(size = 16))
   
   pca_plot
 }

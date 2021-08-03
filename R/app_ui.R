@@ -5,6 +5,8 @@
 #' @import shiny
 #' @noRd
 
+requireNamespace("magrittr")
+
 dark <- bslib::bs_theme(
   bg = "#191414", fg = "#1DB954", 
   primary = "#1DB954", secondary = "#1DB954", success = "#1DB954", 
