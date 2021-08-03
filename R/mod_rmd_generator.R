@@ -1,6 +1,7 @@
 #' rmd_generator UI Function
 #'
-#' @description A shiny Module.
+#' @description This UI module is for a download button that is dynamically 
+#' created when the plots are prepared to be downloaded. 
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
@@ -15,6 +16,9 @@ mod_rmd_generator_ui <- function(id){
 }
     
 #' rmd_generator Server Functions
+#' 
+#' @description Code to create a file called report from the exists RMD file 
+#' in the directory.
 #'
 #' @noRd 
 mod_rmd_generator_server <- function(id, ggscatter, pca_scatter, pca_table){

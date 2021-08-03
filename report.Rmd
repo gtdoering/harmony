@@ -19,16 +19,15 @@ params:
 
 ---
 
-A plot.
-```{r}
+```{r echo=FALSE}
 params$ggscatter
 ```
 
-```{r}
+```{r echo = FALSE}
 params$pca_scatter
 ```
 
-```{r}
+```{r echo=FALSE, paged.print=TRUE}
 params$pca_table
 ```
 
