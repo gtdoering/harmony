@@ -34,6 +34,7 @@ mod_rmd_generator_server <- function(id, ggscatter, pca_scatter, pca_table){
       downloadButton(ns("report"),"Generate Report")
     })
     
+  
     output$report <- downloadHandler(
       # For PDF output, change this to "report.pdf"
       filename = "report.html",
@@ -52,7 +53,8 @@ mod_rmd_generator_server <- function(id, ggscatter, pca_scatter, pca_table){
         # Knit the document, passing in the `params` list, and eval it in a
         # child of the global environment (this isolates the code in the document
         # from the code in this app).
-        rmarkdown::render("report.Rmd", output_file = file,
+        
+        rmarkdown::render(paste0(getwd(),"/R/report.Rmd"), output_file = file,
                           params = params,
                           envir = new.env(parent = globalenv())
         )

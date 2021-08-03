@@ -29,6 +29,7 @@ usethis::use_package("magrittr")
 usethis::use_package("dplyr")
 usethis::use_package("tibble")
 usethis::use_package("rmarkdown")
+usethis::use_
 usethis::use_pipe()
 
 ## Add modules ----
