@@ -46,10 +46,12 @@ mod_artist_data_server <- function(id){
     # Fixes issue of a less popular band having the name of a word in the name of another band
     list_of_names <- reactive({
       req(input$artist_search != '')
-      artists <- spotifyr::search_spotify(input$artist_search, authorization = spotify_access_token())
-      artists <- artists$artists$items[c('id','name','images')]
-      artists <- dplyr::distinct(artists, stringr::str_to_lower(name), .keep_all = TRUE)
-      artists[,1:3]
+      
+      artists <- spotifyr::search_spotify(input$artist_search) %>% 
+        .$artists %>% .$items %>% 
+        dplyr::select(id, name, images) %>% 
+        dplyr::distinct(stringr::str_to_lower(name), .keep_all = TRUE) %>% 
+        dplyr::select(id, name, images)
     })
     
     # Creates a UI for the select input bar and a generate plot button that triggers the data
@@ -69,9 +71,8 @@ mod_artist_data_server <- function(id){
                                     color = "#1DB954")
       
       data <- spotifyr::get_artist_audio_features(list_of_names()[list_of_names()$name == input$artist_select,]$id, 
-                                                  authorization = spotify_access_token())
-      
-      data <- dplyr::distinct(data,  stringr::str_to_lower(track_name), stringr::str_to_lower(album_name), .keep_all = TRUE)
+                                                  authorization = spotify_access_token()) %>% 
+        dplyr::distinct(stringr::str_to_lower(track_name), stringr::str_to_lower(album_name), .keep_all = TRUE)
       
       shinybusy::remove_modal_spinner()
     

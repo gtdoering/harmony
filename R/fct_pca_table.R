@@ -23,21 +23,18 @@
 #' 
 
 pca_table <- function(data, album_filter){
-  pca_variables <- c("acousticness","danceability","energy","instrumentalness",
-                     "liveness","loudness","speechiness","tempo","valence")
   
-  data <- data[,c(pca_variables,'album_name','track_name')]
+  pca_table <- data %>% 
+    dplyr::filter(album_name %in% album_filter) %>%
+    dplyr::select(danceability:energy,loudness, speechiness:tempo) %>% 
+    stats::prcomp(center = TRUE, scale = TRUE) %>% 
+    .$x %>% 
+    as.data.frame() %>% 
+    dplyr::mutate("Album Name" = data$album_name[data$album_name %in% album_filter],
+                "Track Name" = data$track_name[data$album_name %in% album_filter],
+                "ID" = rownames(data[data$album_name %in% album_filter,])) %>% 
+    tibble::column_to_rownames(var = "ID") %>% 
+    dplyr::select("Album Name", "Track Name", dplyr::everything()) 
   
-  pca_data <- data[data$album_name %in% album_filter, c(pca_variables)]
-  prin_comp_data <- stats::prcomp(pca_data, center = TRUE, scale = TRUE)
-  
-  pca_table_data <- as.data.frame(prin_comp_data$x)
-  pca_table_data$album_name <- data$album_name[data$album_name %in% album_filter]
-  pca_table_data$track_name <- data$track_name[data$album_name %in% album_filter]
-  pca_table_data <- pca_table_data[,c(10,11,1,2,3,4,5,6,7,8,9)]
-  rownames(pca_table_data) <- rownames(data[data$album_name %in% album_filter,])
-  colnames(pca_table_data) <- c("Album Name", "Track Name", "PC1", "PC2", "PC3",
-                                "PC4", "PC5", "PC6", "PC7", "PC8", "PC9")
-  
-  pca_table_data
+  pca_table
 }
