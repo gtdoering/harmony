@@ -52,8 +52,7 @@ mod_rmd_generator_server <- function(id, ggscatter, pca_scatter, pca_table){
         
         # Knit the document, passing in the `params` list, and eval it in a
         # child of the global environment (this isolates the code in the document
-        # from the code in this app).
-        
+        # from the code in this app). "report,Rmd" MUST be in working dir.
         rmarkdown::render(paste0(getwd(),"/R/report.Rmd"), output_file = file,
                           params = params,
                           envir = new.env(parent = globalenv())
